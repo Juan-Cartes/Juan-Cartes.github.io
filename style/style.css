@@ -114,6 +114,51 @@ span {
     transform: translateY(-50%);
 }
 
+.snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff; 
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+  }
+  
+.snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  /* Animations to fade the snackbar in and out */
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+
+
 @media only screen and (max-width: 1440px) {
     .signup-container .image {
         left: -90px;
@@ -234,15 +279,23 @@ form input:not([type="checkbox"]):focus {
     background-position: center;
     transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1), background 0.8s;
   }
-  .ripple:hover {
+  .blue-btn.ripple:hover {
     background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
   }
-  .ripple:active {
+  .blue-btn.ripple:active {
     background-color: #6eb9f7;
     background-size: 100%;
     transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1), background 0s;
   }
   
+  .red-btn.ripple:hover {
+    background: #e57373 radial-gradient(circle, transparent 1%, #e57373 1%) center/15000%;
+  }
+  .red-btn.ripple:active {
+    background-color: #ef9a9a;
+    background-size: 100%;
+    transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1), background 0s;
+  }
 
 .animated-btn {
     animation-name: animatedBtn;

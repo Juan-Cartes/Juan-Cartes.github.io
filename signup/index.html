@@ -7,10 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tetra Online | Signup | Competitive Online Puzzle Game</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168658330-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-168658330-1');
+    </script>
 
     <link rel="stylesheet" type="text/css" href="/style/style.css">
     <link rel="stylesheet" type="text/css" href="/style/loader.css">
-    <link href="https://fonts.googleapis.com/css?family=Material%2BIcons%7CRaleway%3A500%2C900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -297,7 +309,7 @@
                     </select>
                 </div>
 
-               <!-- <div class="input-wrap">
+                <!-- <div class="input-wrap">
                     <input type="checkbox" id="terms-and-conditions" />
                     <label class="input-label" for="terms-and-conditions">I agree with the <a href="#">Terms and Conditions</a>, <a href="#">Privacy Policy</a> and <a href="#">EULA</a> of Tetra Online</label>
                 </div>-->
@@ -327,6 +339,10 @@
         <h5 style="color: #fff; margin-top: 200px;">Please wait...</h5>
     </div>
 
+    <div class="snackbar" id="email-conflict">Your email address or username has already been taken.</div>
+    <div class="snackbar" id="server-error">An internal error occurred. Please, try again later.</div>
+
+
 
     <script>
         function onSignIn(googleUser) {
@@ -343,7 +359,7 @@
             xhr.send('id_token=' + id_token);
         }
 
-        function signup(){
+        function signup() {
             var overlay = document.querySelector(".overlay");
             overlay.style.display = "flex";
 
@@ -352,10 +368,27 @@
             xhr.open('POST', 'https://rest.tetradev.studio/v1/accounts/create');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.setRequestHeader('Accept', 'application/json');
-            xhr.onload = function (e) {
-                if(xhr.readyState === 4){
-                    if(xhr.status === 200){
-                        window.location.href = "/signup/success.html";
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        window.location.href = "/signup/email-verification.html";
+                    } else {
+                        overlay.style.display = "none";
+
+                        if (xhr.status === 409) {
+                            var toast = document.getElementById("email-conflict");
+                            toast.className = "snackbar show";
+                            setTimeout(function() {
+                                toast.className = toast.className.replace("show", "");
+                            }, 3000);
+                        } else if (xhr.status === 500) {
+                            var toast = document.getElementById("server-error");
+                            toast.className = "snackbar show";
+                            setTimeout(function() {
+                                toast.className = toast.className.replace("show", "");
+                            }, 3000);
+                        }
+
                     }
                 }
             };
@@ -380,7 +413,6 @@
 
 
         }
-
     </script>
 
 </body>
