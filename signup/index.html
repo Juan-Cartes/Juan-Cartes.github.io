@@ -11,6 +11,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168658330-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -55,6 +56,9 @@
                 <div class="input-wrap">
                     <input type="password" id="password" placeholder="Password" />
                     <span style="margin-top: 10px; margin-left: 10px;">We recommend you use a unique random password</span>
+                </div>
+                <div class="input-wrap">
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" />
                 </div>
                 <div class="input-wrap">
                     <select id="country">
@@ -341,6 +345,7 @@
 
     <div class="snackbar" id="email-conflict">Your email address or username has already been taken.</div>
     <div class="snackbar" id="server-error">An internal error occurred. Please, try again later.</div>
+    <div class="snackbar" id="password-error">Passwords do not match. Please, try again.</div>
 
 
 
@@ -362,6 +367,24 @@
         function signup() {
             var overlay = document.querySelector(".overlay");
             overlay.style.display = "flex";
+
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+            var countryElement = document.getElementById("country");
+            var country = countryElement.options[countryElement.selectedIndex].value;
+
+            if(password !== confirmPassword){
+                
+                var toast = document.getElementById("password-error");
+                            toast.className = "snackbar show";
+                            setTimeout(function() {
+                                toast.className = toast.className.replace("show", "");
+                            }, 3000);
+                return;
+            }
+
 
             var xhr = new XMLHttpRequest();
 
@@ -392,14 +415,6 @@
                     }
                 }
             };
-
-
-            var username = document.getElementById("username").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var countryElement = document.getElementById("country");
-            var country = countryElement.options[countryElement.selectedIndex].value;
-
 
             var data = {
                 "username": username,
