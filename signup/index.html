@@ -377,6 +377,7 @@
 
             if(password !== confirmPassword){
                 
+                overlay.style.display = "none";
                 var toast = document.getElementById("password-error");
                             toast.className = "snackbar show";
                             setTimeout(function() {
