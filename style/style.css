@@ -409,7 +409,7 @@ form input:not([type="checkbox"]):focus {
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
 }
 
 ul li {
@@ -523,9 +523,9 @@ footer {
 
 @keyframes animatedBtn {
     from {
-        transform: translateY(-5px)
+        transform: translateY(-2px);
     }
     to {
-        transform: translateY(5px)
+        transform: translateY(2px);
     }
 }
